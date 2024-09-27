@@ -1,0 +1,36 @@
+﻿@model SpecialityWithDoctorsViewModel
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_CustomLayout.cshtml";
+}
+
+<h2>@Model.Name</h2>
+
+<hr />
+
+<div class="container mt-4">
+    <div class="row">
+        @foreach (var doctor in Model.Doctors)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    @if (doctor.Img != null && doctor.Img.Length > 0)
+                    {
+                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(doctor.Img)" alt="Doctor Image" class="card-img-top">
+                    }
+                    else
+                    {
+                        <img src="/images/d1.jpg" alt="" class="card-img-top">
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title">@doctor.Name</h5>
+                        <p class="card-text">Rating: @doctor.AvgRating/5</p>
+                        <a href="/reservation/new?doctorid=@doctor.Id" class="btn btn-success">
+                            Book An Appointment
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

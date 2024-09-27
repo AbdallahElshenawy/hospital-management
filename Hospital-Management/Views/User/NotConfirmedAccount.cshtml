@@ -1,0 +1,25 @@
+﻿@{
+    Layout = "~/Views/Shared/_CustomLayout.cshtml";
+}
+
+
+<div class="container">
+    @if(ViewBag.Success != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @ViewBag.Success
+        </div>
+    }
+    else if(ViewBag.Error != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.Error
+        </div>
+    }
+    <div class="header">
+        <h1>Looks like your account isn't confirmed</h1>
+    </div>
+    <div class="mt-5">
+        <a class="btn btn-success" href="@Url.Action("SendConfirmationMail", "User")">Resend confirmation link</a>
+    </div>
+</div>

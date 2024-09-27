@@ -1,21 +1,18 @@
 using Hospital_Management.Models;
+using Hospital_Management.Repository;
+using Hospital_Management.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace Hospital_Management.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController(IUserServices<ApplicationUser> userServices, IUnitOfWork unitOfWork, IHomeServices homeServices) : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        public async Task<IActionResult> Index()
         {
-            _logger = logger;
-        }
+            var model = await homeServices.GetHomeModel();
 
-        public IActionResult Index()
-        {
-            return View();
+            return View(model);
         }
 
         public IActionResult Privacy()

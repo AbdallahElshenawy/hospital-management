@@ -1,0 +1,144 @@
+﻿@using Hospital_Management.Areas.AdminPortal.ViewModel
+@using Hospital_Management.Models
+
+@model Patient
+@{
+    ViewData["Title"] = $"{@Model.FullName} - Patient"; ;
+    ViewData["HeaderTitle"] = $"{@Model.FullName}";
+    ViewData["HeaderSubTitle"] = "Patient";
+}
+
+<h1>Details</h1>
+
+<button class="btn btn-primary">
+    <a style="text-decoration:none" class="text-white" href="/adminportal/Patient/Index">Back to All Patients</a>
+</button>
+<div>
+    <p class="display-3">Details of Patient: @Model.FullName</p>
+    <div class="container d-flex">
+        <img class="img-thumbnail m-auto" width="200" height="200" src="@Model.Img" alt="image preview" />
+    </div>
+    <div class="container mt-2">
+        <table class="table table-bordered table-hover text-center">
+            <thead>
+            <th>ID</th>
+            <th>FullName</th>
+            <th>PhoneNumber</th>
+            <th>BirthDate</th>
+            <th>Address</th>
+
+            </thead>
+            <tr>
+                <td>@Model.Id</td>
+                <td>@Model.FullName</td>
+                <td>@Model.PhoneNumber</td>
+                <td>@Model.BirthDate</td>
+                <td>@Model?.Address</td>
+
+                <td>
+                    <a asp-controller="Patient" asp-action="details" asp-route-id="@Model.Id">@Model.FullName</a>
+                </td>
+            </tr>
+            <table />
+
+            <hr />
+            <!--Rates Table-->
+
+            <table class="table table-bordered table-hover text-center mt-3">
+                <tr>
+                    <th colspan="2" class="fs-5">
+                        Rates
+                    </th>
+                </tr>
+                <tr>
+                    <th>Id</th>
+                    <th>Comment</th>
+                    <th>Value</th>
+                </tr>
+                @foreach (var item in Model.Rates)
+                {
+                    <tr class="text">
+                        <td>@item.Id</td>
+                        <td>@item.Comment</td>
+                        <td>@item.Value</td>
+
+                    </tr>
+                }
+            </table>
+
+            <hr />
+            <!--Articles Table-->
+
+            <table class="table table-bordered table-hover text-center mt-3">
+                <tr>
+                    <th colspan="2" class="fs-5">
+                        Articles
+                    </th>
+                </tr>
+                <tr>
+                    <th>Id</th>
+                    <th>Prescription</th>
+                    <th>Date</th>
+                    <th>Diagnosis</th>
+                    <th>Notes</th>
+
+                </tr>
+                @foreach (var item in Model.Records)
+                {
+                    <tr class="text">
+                        <td>@item.Id</td>
+                        <td>@item.Prescription</td>
+                        <td>@item.Date</td>
+                        <td>@item.Diagnosis</td>
+                        <td>@item.Notes</td>
+
+                    </tr>
+                }
+            </table>
+            <hr />
+
+            <div class="d-flex justify-content-around fs-5">
+                <button class="btn btn-warning">
+                    <a class="text-white" style="text-decoration:none" href="/AdminPortal/Patient/edit/@Model.Id">Edit</a>
+                </button>
+                <button class="btn btn-danger" onclick="confirmDelete(@Model.Id)">
+                    <a class="text-white" style="text-decoration:none" href="#">Remove</a>
+                </button>
+            </div>
+    </div>
+</div>
+
+<div id="deleteAlert" class="alert alert-dismissible fade fixed-bottom w-75 m-auto mb-2" role="alert">
+</div>
+
+<script>
+    function confirmDelete(id) {
+        if (confirm("Are you sure you want to delete this patient?")) {
+            fetch(`/AdminPortal/Patient/Delete/${id}`, {
+                method: "DELETE"
+            })
+                .then(response => response.json().then(data => ({ status: response.status, message: data.message })))
+                .then(data => notifyDeletion(id, data))
+                .catch(error => notifyDeletion(id, error));
+
+        }
+    }
+
+    function notifyDeletion(id, data) {
+        var notification = document.getElementById("deleteAlert");
+        var row = document.getElementById(id);
+        if (data.status != 201) {
+            notification.classList.add("alert-danger");
+        }
+        else {
+            notification.classList.add("alert-success");
+        }
+        notification.innerHTML = data.message;
+        notification.classList.add("show");
+
+        setTimeout(function () {
+            notification.classList.remove("show");
+            location.href = "/AdminPortal/Patient/Index";
+        }, 3000);
+    }
+</script>

@@ -1,0 +1,145 @@
+﻿@using Hospital_Management.Models
+@model Hospital_Management.Areas.AssistantPortal.ViewModels.AssistantViewmodel
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="buttons">
+    <button onclick="Res()">Reservation</button>
+    <button onclick="Doc()">Doctor</button>
+    </div>
+    <div id="Reservation">
+    <table class="table-bordered table-hover" cellpadding="10px" >
+        <thead>
+            <tr>
+                <th>Patient Name</th>
+                <th>Reservation Date</th>
+                <th>Reservation Status</th>
+                <th>Doctor Name</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.PatientName</td>
+                <td>@Model.ReservationDate</td>
+                @if (@Model.ReservationStatus == 0)  
+                           {
+                                <td>New Res</td>
+                             }
+                else if ( (int)Model.ReservationStatus==2)
+                             {
+                    <td>Cancelled</td>
+                }
+                else if ((int) Model.ReservationStatus == 3)
+                {
+                    <td>Done</td>
+                }
+                else if ((int)Model.ReservationStatus == 1)
+                {
+                <td>Pending</td>
+                }
+
+                else if ((int)Model.ReservationStatus == 4)
+                {
+                    <td>Absent</td>
+                }
+                <td>@Model.doctor.FullName</td>
+                <td>
+                    <a class=" btn btn-success" href="/Assistant/EditReservation/@Model.ReservationId">Edit</a>
+                </td>
+
+            </tr>
+
+            
+        </tbody>
+    </table>
+    </div>
+    <div id="Doctor" style="display:none">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>WorkingDays</th>
+                    <th>WorkingHours</th>
+                    <th>StartHour</th>
+                    <th>ExaminationsMinutes</th>
+                    <th>ExaminationFees</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.doctor.FullName</td>
+                    <td>@Model.doctor.WorkingDays</td>
+                    <td>@Model.doctor.WorkingHours</td>
+                    <td>@Model.doctor.StartHour</td>
+                    <td>@Model.doctor.ExaminationsMinutes</td>
+                    <td>@Model.doctor.ExaminationFees</td>
+                    <td>
+                    <a class=" btn btn-success" href="/Assistant/EditDoctor/@Model.doctor.Id">Edit</a>
+                </td>
+
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+<style>
+    button{
+        padding:10px;
+        border: 2px solid #178066;
+        background-color:white;
+        font-weight:bold;
+        font-size:22px;
+        margin-bottom:20px;
+        
+
+    }
+    
+
+
+
+    button:hover{
+            background-color: #178066;
+            color:white;
+    }
+    .buttons{
+        display:block;
+        margin-left: 450px;
+    }
+
+    #Reservation{
+        margin-left:220px;
+    }
+    #Doctor{
+        margin-left:100px;
+    }
+
+</style>
+
+
+<script>
+    {
+        var Reservation = document.getElementById("Reservation");
+        var Doctor = document.getElementById("Doctor");
+
+    function Res() {
+        Reservation.style.display = "inline-block";
+        Doctor.style.display = "none";
+
+    }
+
+        function Doc() {
+            Reservation.style.display = "none";
+            Doctor.style.display = "inline-block";
+
+        }
+
+    }
+</script>
+
+

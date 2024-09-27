@@ -1,0 +1,40 @@
+﻿
+ @model IEnumerable<Hospital_Management.ViewModels.RecordViewModel>
+
+@{
+    ViewData["Title"] = "Patients Records";
+}
+<h1 class="text-center">@ViewData["Title"]</h1>
+<a href="/DoctorPortal/Doctor/CreateRecord" class="btn btn-primary mb-3">Add New Record</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Patient Name</th>
+            <th>Description</th>
+            <th>Diagnosis</th>
+            <th>Prescription</th>
+            <th>Notes</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var record in Model)
+        {
+            <tr>
+                <td>@record.Id</td>
+                <td>@record.PatientName</td>
+                 <td>@record.Description</td>
+                <td>@record.Diagnosis</td>
+                <td>@record.Prescription</td>
+                <td>@record.Notes</td>
+                <td>@record.Date.ToString("d")</td>
+                <td>
+                    <a href="@Url.Action("EditRecord", new { id = record.Id })" class="btn btn-primary">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+ 

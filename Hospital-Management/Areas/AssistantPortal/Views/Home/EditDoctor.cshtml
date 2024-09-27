@@ -1,0 +1,42 @@
+﻿@using Hospital_Management.Models
+@model Doctor
+@{
+    ViewData["Title"] = "EditDoctor";
+}
+
+<form method="Post" action="/Assistant/SaveDoctor?id=@Model.Id">
+
+    <div>
+        <label asp-for="FullName"></label>
+        <input asp-for="FullName" class="form-check form-control" disabled />
+
+    </div>
+    <div>
+        <label asp-for="WorkingDays"></label>
+        <input asp-for="WorkingDays" class="form-check form-control" />
+
+    </div>
+    <div>
+        <label asp-for="WorkingHours"></label>
+        <input asp-for="WorkingHours" class="form-check form-control" />
+
+    </div>
+    <div>
+        <label asp-for="StartHour"></label>
+        <input asp-for="StartHour" class="form-check form-control" />
+
+    </div>
+    <div>
+        <label asp-for="ExaminationsMinutes"></label>
+        <input asp-for="ExaminationsMinutes" class="form-check form-control" />
+
+    </div>
+    <div>
+        <label asp-for="ExaminationFees"></label>
+        <input asp-for="ExaminationFees" class="form-check form-control" />
+
+    </div>
+
+
+    <input type="submit" value="Save" class="btn btn-success" style="margin-top:10px" />
+</form>

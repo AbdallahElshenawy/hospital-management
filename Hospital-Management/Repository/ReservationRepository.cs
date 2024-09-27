@@ -14,6 +14,10 @@ namespace Hospital_Management.Repository
         {
            return context.Reservations.ToList();
         }
+        public List<Reservation> GetByDoctorId(string doctorId)
+        {
+            return context.Reservations.Where(r => r.DoctorId == doctorId).ToList();
+        }
 
         public Reservation GetById(int id)
         {

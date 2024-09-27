@@ -1,0 +1,61 @@
+﻿@model Hospital_Management.ViewModels.PatientRecordsVM
+
+<h1 class="text-center">Patient: @Model.PatientName</h1>
+
+<h2 class="mt-4">Records:</h2>
+
+<div class="container mt-4">
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Diagnosis</th>
+                <th>Prescription</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var record in Model.Records)
+            {
+                <tr>
+                    <td>@record?.Date.ToString("d")</td>
+                    <td>@record?.Description</td>
+                    <td>@record?.Diagnosis</td>
+                    <td>@record?.Prescription</td>
+                    <td>@record?.Notes</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Add Record Form -->
+<div class="container mt-4">
+    <h3>Add New Record</h3>
+    <form action="/DoctorPortal/Doctor/CreateRecord" method="post">
+        <input type="hidden" name="PatientId" value="@Model.PatientId" />
+
+        <div class="form-group">
+            <label for="Description">Description</label>
+            <input type="text" id="Description" name="Description" class="form-control" placeholder="Enter description" required />
+        </div>
+
+        <div class="form-group">
+            <label for="Diagnosis">Diagnosis</label>
+            <input type="text" id="Diagnosis" name="Diagnosis" class="form-control" placeholder="Enter diagnosis" required />
+        </div>
+
+        <div class="form-group">
+            <label for="Prescription">Prescription</label>
+            <input type="text" id="Prescription" name="Prescription" class="form-control" placeholder="Enter prescription" />
+        </div>
+
+        <div class="form-group">
+            <label for="Notes">Notes</label>
+            <textarea id="Notes" name="Notes" class="form-control" placeholder="Enter notes"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Record</button>
+    </form>
+</div>

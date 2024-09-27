@@ -7,7 +7,7 @@ namespace Hospital_Management.Repository
 {
     public class AssistantRepo(ApplicationDbContext context) : IAssistantRepo
     {
-        public void Delete(int id)
+        public void Delete(string id)
         {
             var assistant = context.Assistants.Find(id);
             if (assistant != null)
@@ -21,7 +21,7 @@ namespace Hospital_Management.Repository
             return context.Assistants.Include(a => a.Doctor).ToList();
         }
 
-        public Assistant GetById(int id)
+        public Assistant GetById(string id)
         {
             return context.Assistants.Include(a => a.Doctor)
                 .FirstOrDefault(a => a.Id == id.ToString());

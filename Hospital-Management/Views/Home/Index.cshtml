@@ -1,10 +1,11 @@
-﻿@{
+﻿@model HomeViewModel
+@{
     Layout = null;
 }
 
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <!-- Basic -->
@@ -67,22 +68,35 @@
                                 <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="about.html"> About</a>
+                                <a class="nav-link" href="/article">Articles</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="departments.html">Departments</a>
+                                <a class="nav-link" href="/speciality">Departments</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="doctors.html">Doctors</a>
+                                <a class="nav-link" href="/doctor">Doctors</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="contact.html">Contact Us</a>
+                                <a class="nav-link" href="/home/contact">Contact Us</a>
                             </li>
-                            <form class="form-inline">
-                                <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                </button>
-                            </form>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" role="button" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                        @User.FindFirst(ClaimTypes.GivenName).Value
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                                        <li><a class="dropdown-item" href="/user/logout">Logout</a></li>
+                                    </ul>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link btn-success" href="/user/register">Join Us</a>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </nav>
@@ -93,69 +107,30 @@
         <section class="slider_section ">
             <div id="customCarousel1" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="container ">
-                            <div class="row">
-                                <div class="col-md-7">
-                                    <div class="detail-box">
-                                        <h1>
-                                            We Provide Best Healthcare
-                                        </h1>
-                                        <p>
-                                            Explicabo esse amet tempora quibusdam laudantium, laborum eaque magnam fugiat hic? Esse dicta aliquid error repudiandae earum suscipit fugiat molestias, veniam, vel architecto veritatis delectus repellat modi impedit sequi.
-                                        </p>
-                                        <div class="btn-box">
-                                            <a href="" class="btn1">
-                                                Read More
-                                            </a>
+                    @foreach (var article in Model.HomeArticles)
+                    {
+                        <div class="carousel-item @(article.Id == Model.HomeArticles[0].Id ? "active" : "")">
+                            <div class="container ">
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <div class="detail-box">
+                                            <h1>
+                                                @article.Title
+                                            </h1>
+                                            <p>
+                                                @(article.Content.Length > 100 ? $"{article.Content.Substring(0, 100)} ..." : article.Content)
+                                            </p>
+                                            <div class="btn-box">
+                                                <a href="/article/@article.Id" class="btn1">
+                                                    Read More
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="carousel-item ">
-                        <div class="container ">
-                            <div class="row">
-                                <div class="col-md-7">
-                                    <div class="detail-box">
-                                        <h1>
-                                            We Provide Best Healthcare
-                                        </h1>
-                                        <p>
-                                            Explicabo esse amet tempora quibusdam laudantium, laborum eaque magnam fugiat hic? Esse dicta aliquid error repudiandae earum suscipit fugiat molestias, veniam, vel architecto veritatis delectus repellat modi impedit sequi.
-                                        </p>
-                                        <div class="btn-box">
-                                            <a href="" class="btn1">
-                                                Read More
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="container ">
-                            <div class="row">
-                                <div class="col-md-7">
-                                    <div class="detail-box">
-                                        <h1>
-                                            We Provide Best Healthcare
-                                        </h1>
-                                        <p>
-                                            Explicabo esse amet tempora quibusdam laudantium, laborum eaque magnam fugiat hic? Esse dicta aliquid error repudiandae earum suscipit fugiat molestias, veniam, vel architecto veritatis delectus repellat modi impedit sequi.
-                                        </p>
-                                        <div class="btn-box">
-                                            <a href="" class="btn1">
-                                                Read More
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    }
                 </div>
                 <ol class="carousel-indicators">
                     <li data-target="#customCarousel1" data-slide-to="0" class="active"></li>
@@ -179,73 +154,28 @@
                         Our Departments
                     </h2>
                     <p>
-                        Asperiores sunt consectetur impedit nulla molestiae delectus repellat laborum dolores doloremque accusantium
+                        Discover our specialized departments, equipped with advanced technology and dedicated to providing exceptional patient care.
                     </p>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
-                        <div class="box ">
-                            <div class="img-box">
-                                <img src="images/s1.png" alt="">
-                            </div>
-                            <div class="detail-box">
-                                <h5>
-                                    Cardiology
-                                </h5>
-                                <p>
-                                    fact that a reader will be distracted by the readable page when looking at its layout.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="box ">
-                            <div class="img-box">
-                                <img src="images/s2.png" alt="">
-                            </div>
-                            <div class="detail-box">
-                                <h5>
-                                    Diagnosis
-                                </h5>
-                                <p>
-                                    fact that a reader will be distracted by the readable page when looking at its layout.
-                                </p>
+                    @foreach (var speciality in Model.Specialities)
+                    {
+                        <div class="col-md-3">
+                            <div class="box">
+                                <div class="img-box">
+                                    <img src="images/s@(speciality.Id).png" alt="">
+                                </div>
+                                <div class="detail-box">
+                                    <h5>
+                                        <a href="/speciality/@(speciality.Id)">@speciality.Name</a>
+                                    </h5>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="box ">
-                            <div class="img-box">
-                                <img src="images/s3.png" alt="">
-                            </div>
-                            <div class="detail-box">
-                                <h5>
-                                    Surgery
-                                </h5>
-                                <p>
-                                    fact that a reader will be distracted by the readable page when looking at its layout.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="box ">
-                            <div class="img-box">
-                                <img src="images/s4.png" alt="">
-                            </div>
-                            <div class="detail-box">
-                                <h5>
-                                    First Aid
-                                </h5>
-                                <p>
-                                    fact that a reader will be distracted by the readable page when looking at its layout.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    }
                 </div>
                 <div class="btn-box">
-                    <a href="">
+                    <a href="/speciality">
                         View All
                     </a>
                 </div>
@@ -272,12 +202,9 @@
                             </h2>
                         </div>
                         <p>
-                            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration
-                            in some form, by injected humour, or randomised words which don't look even slightly believable. If you
-                            are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in
-                            the middle of text. All
+                            Our hospital offers a range of specialized services, from emergency care to cardiology and pediatrics. Each department is equipped with advanced technology and staffed by skilled professionals dedicated to providing exceptional patient care. Explore our departments to see how we can support your health and well-being.
                         </p>
-                        <a href="">
+                        <a href="/home/aboutus">
                             Read More
                         </a>
                     </div>
@@ -296,100 +223,53 @@
                     Our Doctors
                 </h2>
                 <p class="col-md-10 mx-auto px-0">
-                    Incilint sapiente illo quo praesentium officiis laudantium nostrum, ad adipisci cupiditate sit, quisquam aliquid. Officiis laudantium fuga ad voluptas aspernatur error fugiat quos facilis saepe quas fugit, beatae id quisquam.
+                    Meet our skilled and compassionate doctors, dedicated to providing exceptional care across a range of specialties, ensuring personalized treatment and optimal health outcomes.
                 </p>
             </div>
             <div class="row">
-                <div class="col-sm-6 col-lg-4 mx-auto">
-                    <div class="box">
-                        <div class="img-box">
-                            <img src="images/d1.jpg" alt="">
-                        </div>
-                        <div class="detail-box">
-                            <div class="social_box">
-                                <a href="">
-                                    <i class="fa fa-facebook" aria-hidden="true"></i>
-                                </a>
-                                <a href="">
-                                    <i class="fa fa-twitter" aria-hidden="true"></i>
-                                </a>
-                                <a href="">
-                                    <i class="fa fa-youtube" aria-hidden="true"></i>
-                                </a>
-                                <a href="">
-                                    <i class="fa fa-linkedin" aria-hidden="true"></i>
-                                </a>
+                @foreach(var doctor in Model.HomeDoctors)
+                {
+                    <div class="col-sm-6 col-lg-4 mx-auto">
+                        <div class="box">
+                            <div class="img-box">
+                                @if(doctor.Img != null)
+                                {
+                                    try
+                                    {
+                                        string imageBase64 = Convert.ToBase64String(doctor.Img);
+                                        string imageSrc = $"data:image/jpeg;base64,{imageBase64}";
+
+                                        <img src="@imageSrc" alt="Profile Image" class="img-thumbnail" />
+                                    }
+                                    catch (Exception)
+                                    {
+                                        <img src="images/d1.jpg" alt="">
+                                    }
+                                }
+                                else
+                                {
+                                    <img src="images/d1.jpg" alt="">
+                                }
                             </div>
-                            <h5>
-                                Elina Josh
-                            </h5>
-                            <h6 class="">
-                                Doctor
-                            </h6>
+                            <div class="detail-box">
+                                <div class="social_box">
+                                    <a href="/reservation/new?doctorid=@doctor.Id">
+                                        Book An Appointment
+                                    </a>
+                                </div>
+                                <h5>
+                                    @doctor.FullName
+                                </h5>
+                                <h6 class="">
+                                    @doctor.Speciality.Name
+                                </h6>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-6 col-lg-4 mx-auto">
-                    <div class="box">
-                        <div class="img-box">
-                            <img src="images/d2.jpg" alt="">
-                        </div>
-                        <div class="detail-box">
-                            <div class="social_box">
-                                <a href="">
-                                    <i class="fa fa-facebook" aria-hidden="true"></i>
-                                </a>
-                                <a href="">
-                                    <i class="fa fa-twitter" aria-hidden="true"></i>
-                                </a>
-                                <a href="">
-                                    <i class="fa fa-youtube" aria-hidden="true"></i>
-                                </a>
-                                <a href="">
-                                    <i class="fa fa-linkedin" aria-hidden="true"></i>
-                                </a>
-                            </div>
-                            <h5>
-                                Adam View
-                            </h5>
-                            <h6 class="">
-                                Doctor
-                            </h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-4 mx-auto">
-                    <div class="box">
-                        <div class="img-box">
-                            <img src="images/d3.jpg" alt="">
-                        </div>
-                        <div class="detail-box">
-                            <div class="social_box">
-                                <a href="">
-                                    <i class="fa fa-facebook" aria-hidden="true"></i>
-                                </a>
-                                <a href="">
-                                    <i class="fa fa-twitter" aria-hidden="true"></i>
-                                </a>
-                                <a href="">
-                                    <i class="fa fa-youtube" aria-hidden="true"></i>
-                                </a>
-                                <a href="">
-                                    <i class="fa fa-linkedin" aria-hidden="true"></i>
-                                </a>
-                            </div>
-                            <h5>
-                                Mia Mike
-                            </h5>
-                            <h6 class="">
-                                Doctor
-                            </h6>
-                        </div>
-                    </div>
-                </div>
+                }
             </div>
             <div class="btn-box">
-                <a href="">
+                <a href="/doctor">
                     View All
                 </a>
             </div>
@@ -457,72 +337,49 @@
             </div>
             <div id="carouselExample2Controls" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="row">
-                            <div class="col-md-11 col-lg-10 mx-auto">
-                                <div class="box">
-                                    <div class="img-box">
-                                        <img src="images/client.jpg" alt="" />
-                                    </div>
-                                    <div class="detail-box">
-                                        <div class="name">
-                                            <h6>
-                                                Alan Emerson
-                                            </h6>
+                    @for(int i = 0; i < Model.HomeTestimonial.Count; i++)
+                    {
+                        var testimonial = Model.HomeTestimonial[i];
+                        <div class="carousel-item @(i == 0 ? "active" : "")">
+                            <div class="row">
+                                <div class="col-md-11 col-lg-10 mx-auto">
+                                    <div class="box">
+                                        <div class="img-box">
+                                            @if(testimonial.PatientImg != null)
+                                            {
+                                                try
+                                                {
+                                                    string imageBase64 = Convert.ToBase64String(testimonial.PatientImg);
+                                                    string imageSrc = $"data:image/jpeg;base64,{imageBase64}";
+
+                                                    <img src="@imageSrc" alt="Profile Image" class="img-thumbnail" />
+                                                }
+                                                catch (Exception)
+                                                {
+                                                    <img src="images/client.jpg" alt="">
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <img src="images/client.jpg" alt="">
+                                            }
                                         </div>
-                                        <p>
-                                            Enim consequatur odio assumenda voluptas voluptatibus esse nobis officia. Magnam, aspernatur nostrum explicabo, distinctio laudantium delectus deserunt quia quidem magni corporis earum inventore totam consectetur corrupti! Corrupti, nihil sunt? Natus.
-                                        </p>
-                                        <i class="fa fa-quote-left" aria-hidden="true"></i>
+                                        <div class="detail-box">
+                                            <div class="name">
+                                                <h6>
+                                                    @testimonial.PatientFullName
+                                                </h6>
+                                            </div>
+                                            <p>
+                                                @testimonial.Comment
+                                            </p>
+                                            <i class="fa fa-quote-left" aria-hidden="true"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="row">
-                            <div class="col-md-11 col-lg-10 mx-auto">
-                                <div class="box">
-                                    <div class="img-box">
-                                        <img src="images/client.jpg" alt="" />
-                                    </div>
-                                    <div class="detail-box">
-                                        <div class="name">
-                                            <h6>
-                                                Alan Emerson
-                                            </h6>
-                                        </div>
-                                        <p>
-                                            Enim consequatur odio assumenda voluptas voluptatibus esse nobis officia. Magnam, aspernatur nostrum explicabo, distinctio laudantium delectus deserunt quia quidem magni corporis earum inventore totam consectetur corrupti! Corrupti, nihil sunt? Natus.
-                                        </p>
-                                        <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="row">
-                            <div class="col-md-11 col-lg-10 mx-auto">
-                                <div class="box">
-                                    <div class="img-box">
-                                        <img src="images/client.jpg" alt="" />
-                                    </div>
-                                    <div class="detail-box">
-                                        <div class="name">
-                                            <h6>
-                                                Alan Emerson
-                                            </h6>
-                                        </div>
-                                        <p>
-                                            Enim consequatur odio assumenda voluptas voluptatibus esse nobis officia. Magnam, aspernatur nostrum explicabo, distinctio laudantium delectus deserunt quia quidem magni corporis earum inventore totam consectetur corrupti! Corrupti, nihil sunt? Natus.
-                                        </p>
-                                        <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    }
                 </div>
                 <div class="carousel_btn-container">
                     <a class="carousel-control-prev" href="#carouselExample2Controls" role="button" data-slide="prev">
@@ -590,7 +447,7 @@
                             About
                         </h4>
                         <p>
-                            Beatae provident nobis mollitia magnam voluptatum, unde dicta facilis minima veniam corporis laudantium alias tenetur eveniet illum reprehenderit fugit a delectus officiis blanditiis ea.
+                            Our hospital provides specialized services in areas like emergency care, cardiology, and pediatrics. Our skilled professionals and advanced technology ensure exceptional patient care. Explore our departments to learn more.
                         </p>
                     </div>
                 </div>
@@ -600,19 +457,19 @@
                             Links
                         </h4>
                         <div class="footer_links">
-                            <a class="" href="index.html">
+                            <a class="" href="/">
                                 Home
                             </a>
-                            <a class="" href="about.html">
-                                About
+                            <a class="" href="/article">
+                                Articles
                             </a>
-                            <a class="" href="departments.html">
+                            <a class="" href="/speciality">
                                 Departments
                             </a>
-                            <a class="" href="doctors.html">
+                            <a class="" href="/doctor">
                                 Doctors
                             </a>
-                            <a class="active" href="contact.html">
+                            <a class="active" href="/home/contact">
                                 Contact Us
                             </a>
                         </div>
@@ -655,6 +512,20 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
     </script>
     <!-- End Google Map -->
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.dropdown').on('show.bs.dropdown', function () {
+                $(this).find('.dropdown-menu').first().stop(true, true).slideDown(300);
+            });
+
+            $('.dropdown').on('hide.bs.dropdown', function () {
+                $(this).find('.dropdown-menu').first().stop(true, true).slideUp(300);
+            });
+        });
+    </script>
 
 </body>
 

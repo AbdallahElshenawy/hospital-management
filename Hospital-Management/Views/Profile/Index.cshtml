@@ -1,0 +1,188 @@
+﻿@model UserProfileDataViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_CustomLayout.cshtml";
+}
+
+<h2>User Profile</h2>
+
+<div class="profile-container">
+    <form id="profileForm" asp-action="SaveChanges" asp-controller="Profile" method="post" enctype="multipart/form-data">
+
+        <div class="profile-layout">
+            <div class="image-container">
+                <label><strong>Profile Picture:</strong></label>
+                @if (Model.Img != null && Model.Img.Length > 0)
+                {
+                    <img src="data:image;base64,@Convert.ToBase64String(Model.Img)" alt="Profile Picture" />
+                }
+                else
+                {
+                    <p>No profile picture available</p>
+                }
+                <input type="file" id="Img" name="Img" accept="image/*" asp-for="Img" disabled />
+            </div>
+
+            <div class="grid-container">
+                <div class="grid-item">
+                    <label><strong>Username:</strong></label>
+                    <input type="text" id="UserName" value="@Model.UserName" asp-for="UserName" disabled />
+                </div>
+                <div class="grid-item">
+                    <label><strong>Email:</strong></label>
+                    <input type="email" id="Email" value="@Model.Email" asp-for="Email" disabled />
+                </div>
+                <div class="grid-item">
+                    <label><strong>First Name:</strong></label>
+                    <input type="text" id="FirstName" value="@Model.FirstName" disabled asp-for="FirstName" />
+                </div>
+                <div class="grid-item">
+                    <label><strong>Last Name:</strong></label>
+                    <input type="text" id="LastName" value="@Model.LastName" disabled asp-for="LastName" />
+                </div>
+                <div class="grid-item">
+                    <label><strong>Birth Date:</strong></label>
+                    <input type="date" id="BirthDate" value="@Model.BirthDate" disabled asp-for="BirthDate" />
+                </div>
+                <input type="hidden" id="Userid" value="@Model.UserId" asp-for="UserId" />
+            </div>
+        </div>
+
+        @if (Model.PatientReservation != null)
+        {
+            @foreach (var item in Model.PatientReservation)
+            {
+                <div class="grid-item">
+                    <label>Reservation ID:</label>
+                    <input type="text" name="ReservationId" value="@item.Id" readonly />
+                </div>
+                <div class="grid-item">
+                    <label>Doctor Name:</label>
+                    <input type="text" name="DoctorName" value="@item.Doctor.FullName" readonly />
+                </div>
+                <div class="grid-item">
+                    <label>Patient Name:</label>
+                    <input type="text" name="PatientName" value="@item.Patient.FullName" readonly />
+                </div>
+                <div class="grid-item">
+                    <label>Reservation Date:</label>
+                    <input type="text" name="ReservationDate" value="@item.Date.ToString("yyyy-MM-dd")" readonly />
+                </div>
+                <div class="grid-item">
+                    <label>Rate:</label>
+                    <input type="text" name="Rate" value="@item.Rate" readonly />
+                </div>
+                <div class="grid-item">
+                    <label>Assistant:</label>
+                    <input type="text" name="Assistant" value="@item.Assistant.FullName" readonly />
+                </div>
+                <div class="grid-item">
+                    <label>Reservation Status:</label>
+                    <input type="text" name="ReservationStatus" value="@item.ReservationStatus" readonly />
+                </div>
+            }
+        }
+
+        @if (Model.DoctorRates != null)
+        {
+            foreach (var item in Model.DoctorRates)
+            {
+                <div class="grid-item">
+                    <label>Rate:</label>
+                    <input type="text" name="rate" value="@item.Value" readonly />
+                </div>
+            }
+        }
+
+        <button type="button" id="editProfileButton" onclick="enableEditing()">Edit Profile</button>
+        <button type="submit" id="saveProfileButton" style="display:none;">Save Profile</button>
+    </form>
+</div>
+
+<script>
+    function enableEditing() {
+        document.getElementById("editProfileButton").style.display = "none";
+        document.getElementById("saveProfileButton").style.display = "inline-block";
+
+        var inputs = document.querySelectorAll("#profileForm input");
+        inputs.forEach(function (input) {
+            input.disabled = false;
+        });
+    }
+</script>
+
+<style>
+
+    .profile-container {
+        max-width: 1500px;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+    }
+
+    #Userid {
+        display: none;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .image-container {
+        grid-column: 1 / 3; /* Occupies both columns */
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .grid-item {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+    }
+
+        .grid-item label,
+        .image-container label {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .grid-item input[type="text"],
+        .grid-item input[type="email"],
+        .grid-item input[type="date"],
+        .image-container input[type="file"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+    .image-container img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        margin-bottom: 10px;
+    }
+
+    button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+    }
+
+        button[type="submit"] {
+            background-color: #28a745;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+</style>    

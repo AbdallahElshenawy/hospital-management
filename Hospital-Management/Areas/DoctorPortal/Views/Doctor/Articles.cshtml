@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Hospital_Management.ViewModels.ArticleSimpleViewModel>
+
+@{
+    ViewData["Title"] = "Articles";
+}
+
+<h1>Articles</h1>
+
+
+<form method="get" action="@Url.Action("Articles", new { page = ViewBag.CurrentPage })" class="mb-3">
+    <div class="form-row align-items-center">
+        <div class="col-auto">
+            <input type="text" name="searchString" value="@ViewBag.SearchString" placeholder="Search..." class="form-control">
+        </div>
+        <div class="col-auto">
+            <select name="searchProperty" class="form-control">
+                <option value="Title" @(ViewBag.SearchProperty == "Title" ? "selected" : "")>Title</option>
+                <option value="Doctor" @(ViewBag.SearchProperty == "Doctor" ? "selected" : "")>Doctor</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</form>
+
+<a href="@Url.Action("CreateArticle", "Doctor", new { area = "DoctorPortal" })" class="btn btn-primary mb-3">Create New Article</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item?.Title</td>
+                <td>@item?.Content</td>
+                <td>@item?.DateTime.ToString("g")</td>
+                <td>
+                    <a href="@Url.Action("EditArticle", "Doctor", new { id = item.Id, area = "DoctorPortal" })" class="btn btn-warning mb-3">Edit Article</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="d-flex justify-content-between">
+    <div>
+        @if (ViewBag.CurrentPage > 1)
+        {
+            <a href="@Url.Action("Articles", new { page = ViewBag.CurrentPage - 1, searchString = ViewBag.SearchString, searchProperty = ViewBag.SearchProperty })" class="btn btn-secondary">Previous</a>
+        }
+    </div>
+
+    <div>
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            <a href="@Url.Action("Articles", new { page = i, searchString = ViewBag.SearchString, searchProperty = ViewBag.SearchProperty })" class="btn btn-info @(i == ViewBag.CurrentPage ? "active" : "")">@i</a>
+        }
+    </div>
+
+    <div>
+        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+        {
+            <a href="@Url.Action("Articles", new { page = ViewBag.CurrentPage + 1, searchString = ViewBag.SearchString, searchProperty = ViewBag.SearchProperty })" class="btn btn-secondary">Next</a>
+        }
+    </div>
+</div>

@@ -2,7 +2,7 @@
 
 namespace Hospital_Management.Repository
 {
-    public interface IAssistantRepo: IRepository<Assistant>
+    public interface IAssistantRepo: IRepository<Assistant, string>
     {
     }
 }

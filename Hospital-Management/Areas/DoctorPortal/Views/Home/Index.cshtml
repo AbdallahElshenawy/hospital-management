@@ -1,7 +1,56 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+
 @{
+    var userName = @Model.UserName; 
 }
 
-<h1>Welcome Doctor</h1>
+<div class="container mt-4">
+    <div class="jumbotron bg-light p-4 rounded">
+        <h1 class="display-4 text-center">Welcome Doctor, @userName</h1>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-4 mb-3">
+            <div class="card text-center border-primary">
+                <div class="card-body">
+                    <h5 class="card-title">Start My Shift</h5>
+                    <a href="@Url.Action("ShiftPatientRecords", "Shift", new { Area = "DoctorPortal" })" class="btn btn-primary btn-lg">Start My Shift</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card text-center border-success">
+                <div class="card-body">
+                    <h5 class="card-title">Show My Reservations</h5>
+                    <a href="@Url.Action("myreservations", "Doctor", new { Area = "DoctorPortal" })" class="btn btn-success btn-lg">Show My Reservations</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card text-center border-warning">
+                <div class="card-body">
+                    <h5 class="card-title">Show My Articles</h5>
+                    <a href="@Url.Action("articles", "Doctor", new { Area = "DoctorPortal" })" class="btn btn-warning btn-lg">Show My Articles</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card text-center border-info">
+                <div class="card-body">
+                    <h5 class="card-title">Show My Rates</h5>
+                    <a href="@Url.Action("viewrates", "Doctor", new { Area = "DoctorPortal" })" class="btn btn-info btn-lg">Show My Rates</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card text-center border-secondary">
+                <div class="card-body">
+                    <h5 class="card-title">Show My Patients Records</h5>
+                    <a href="@Url.Action("patientrecords", "Doctor", new { Area = "DoctorPortal" })" class="btn btn-secondary btn-lg">Show My Patients Records</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

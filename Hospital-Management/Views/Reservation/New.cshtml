@@ -1,0 +1,108 @@
+﻿@using Hospital_Management.Models.DataTypes
+@model DoctorWithResPropertiesViewModel
+
+@{
+    Layout = "~/Views/Shared/_CustomLayout.cshtml";
+}
+
+@if(ViewBag.Error != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.Error
+    </div>
+}
+else if (ViewBag.Success != null)
+{
+    <div class="alert alert-success" role="alert">
+        @ViewBag.Success
+    </div>
+}
+
+<div class="container mt-4">
+    <h2>Book an Appointment</h2>
+
+    <div class="row mb-4">
+        <div class="col-md-4">
+            @if (Model.Img != null && Model.Img.Length > 0)
+            {
+                <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Img)" alt="Doctor Image" class="card-img-top">
+            }
+            else
+            {
+                <img src="/images/d1.jpg" alt="" class="card-img-top">
+            }
+        </div>
+        <div class="col-md-8">
+            <h3>@Model.Name</h3>
+            <p>Speciality: @Model.SpecialityName</p>
+            <p>Average Rating: @Model.AvgRating/5</p>
+            <p>Fees: @Model.ExaminationFees L.E</p>
+            <p>Available Days: @Model.WorkingDays</p>
+        </div>
+    </div>
+    
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <label for="dayPicker" class="form-label">Select a Day:</label>
+            <select id="dayPicker" class="form-select">
+                <option value="">Select a Day</option>
+                @foreach (var day in Enum.GetValues(typeof(DaysOfWeek)).Cast<DaysOfWeek>())
+                {
+                    if ((Model.WorkingDays & day) == day)
+                    {
+                        for (var date = DateTime.Today; date <= DateTime.Today.AddMonths(1); date = date.AddDays(1))
+                        {
+                            if (date.DayOfWeek == (DayOfWeek)Enum.Parse(typeof(DayOfWeek), day.ToString()))
+                            {
+                                <option value="@date.ToString("yyyy-MM-dd")">@date.ToString("dddd, MMMM dd")</option>
+                            }
+                        }
+                    }
+                }
+            </select>
+        </div>
+    </div>
+
+    <div id="appointments" class="row">
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const dayPicker = document.getElementById('dayPicker');
+            const appointmentsContainer = document.getElementById('appointments');
+
+            dayPicker.addEventListener('change', function () {
+                const selectedDay = dayPicker.value;
+                const doctorId = '@Model.Id';
+                const patientId = '@User.Identity.Name'
+
+                fetch(`/reservation/GetAvailableAppointments?doctorId=${doctorId}&date=${selectedDay}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        appointmentsContainer.innerHTML = "";
+                        data.forEach(res => {
+                            // Create your HTML for each appointment here
+                            // Example:
+                            const appointmentHTML = `
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Appointment at ${res.description}</h5>
+                                        
+                                        <a class="btn btn-success" href="/reservation/create?doctorId=${doctorId}&date=${res.date}">Book Now</a>
+                                    </div>
+                                </div>
+                            `;
+                            appointmentsContainer.innerHTML += appointmentHTML;
+                        });
+                    })
+                    .catch(error => {
+                        appointmentsContainer.innerHTML = '<p class="text-danger">Failed to load appointments. Please try again.</p>';
+                    });
+            });
+        });
+
+
+    </script>
+}

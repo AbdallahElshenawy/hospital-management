@@ -1,0 +1,58 @@
+﻿@model Hospital_Management.ViewModels.RecordViewModel
+
+@{
+    ViewData["Title"] = "Edit Record";
+}
+
+<h1>Edit Record</h1>
+
+<form action="/DoctorPortal/Doctor/SaveEditRecord" method="post">
+    <input type="hidden" asp-for="Id" name="Id" value="@Model.Id" />
+
+    <div class="form-group">
+        <label asp-for="Description" class="control-label">Description</label>
+        <input asp-for="Description" name="Description" value="@Model.Description" class="form-control" placeholder="Enter description here" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Diagnosis" class="control-label">Diagnosis</label>
+        <input asp-for="Diagnosis" class="form-control" name="Diagnosis" value="@Model.Diagnosis" placeholder="Enter diagnosis here" />
+        <span asp-validation-for="Diagnosis" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Prescription" class="control-label">Prescription</label>
+        <input asp-for="Prescription" class="form-control" name="Prescription" value="@Model.Prescription" placeholder="Enter prescription here" />
+        <span asp-validation-for="Prescription" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Notes" class="control-label">Notes</label>
+        <textarea asp-for="Notes" class="form-control" name="Notes" placeholder="Enter notes here">@Model.Notes</textarea>
+        <span asp-validation-for="Notes" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Date" class="control-label">Date</label>
+        <input asp-for="Date" name="Date" value="@Model.Date" class="form-control" type="date" />
+        <span asp-validation-for="Date" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PatientId" class="control-label">Patient</label>
+        <select asp-for="PatientId" name="PatientId" class="form-control">
+            @foreach (var patient in ViewData["Patients"] as SelectList)
+            {
+                <option value="@patient.Value" @(Model.PatientId == patient.Value ? "selected" : "")>@patient.Text</option>
+            }
+        </select>
+        <span asp-validation-for="PatientId" class="text-danger"></span>
+    </div>
+
+    <input type="hidden" asp-for="DoctorId" name="DoctorId" value="@Model.DoctorId" />
+
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>

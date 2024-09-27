@@ -1,0 +1,148 @@
+﻿@using Hospital_Management.Areas.AdminPortal.ViewModel
+@using Hospital_Management.Models
+
+@model PaginationVM<Reservation>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="container">
+    <div class="d-flex">
+        <form action="/adminportal/Reservation/search" method="post">
+            <div class="input-group me-auto">
+                <input class="form-control" type="search" name="searchString" placeholder="Search" />
+                <select class="form-select" name="SearchProperty">
+                    <option value="date">Date</option>
+                    <option value="reservationStatus">ReservationStatus</option>
+                </select>
+                <button class="btn btn-success" type="submit"><i class="bi bi-search"></i></button>
+            </div>
+        </form>
+        <button class="btn btn-success ms-auto mb-1">
+            <a class="text-white" style="text-decoration:none" href="/AdminPortal/Reservation/Add">New</a>
+        </button>
+    </div>
+
+    <table class="table table-bordered table-hover text-center align-middle">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>PatientId</th>
+                <th>ReservationStatus</th>
+               
+                <th>AssistantId</th>
+                <th>RateId</th>
+                <th>Details</th>
+                <th>Modify</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
+        @foreach (var item in Model.Items)
+        {
+            <tr id="@item.Id">
+                <td>@item.Id</td>
+                <td>@item.Date</td>
+                <td>@item.PatientId</td>
+                <td>@item.ReservationStatus</td>
+                <td>@item.AssistantId</td>
+                <td>@item.RateId</td>
+
+                <td>
+                    <button class="btn btn-primary">
+                        <a class="text-white" style="text-decoration:none" href="/AdminPortal/Reservation/Details/@item?.Id">Details</a>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-warning">
+                        <a class="text-white" style="text-decoration:none" href="/AdminPortal/Reservation/Edit/@item?.Id">Edit</a>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-danger" onclick="confirmDelete(@item?.DoctorId)">
+                        Remove
+                    </button>
+                </td>
+            </tr>
+        }
+    </table>
+    <div class="d-flex justify-content-center">
+        <nav>
+            <ul class="pagination">
+                @if (Model.HasPreviousPage)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="/AdminPortal/Reservation/?page=@(Model.CurrentPage - 1)">Previous</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">Previous</a>
+                    </li>
+                }
+
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                        <a class="page-link" href="/AdminPortal/Reservation?page=@i">@i</a>
+                    </li>
+                }
+                @if (Model.HasNextPage)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="/AdminPortal/Reservation?page=@(Model.CurrentPage + 1)">Next</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<div id="deleteAlert" class="alert alert-dismissible fade fixed-bottom w-75 m-auto mb-2" role="alert">
+</div>
+
+<script>
+    function confirmDelete(id) {
+        if (confirm("Are you sure you want to delete this reservation?")) {
+            fetch(`/AdminPortal/Reservation/Delete/${id}`, {
+                method: "DELETE"
+            })
+                .then(response => response.json().then(data => ({ status: response.status, message: data.message })))
+                .then(data => notifyDeletion(id, data))
+                .catch(error => notifyDeletion(id, error));
+
+        }
+    }
+
+    function notifyDeletion(id, data) {
+        var notification = document.getElementById("deleteAlert");
+        var row = document.getElementById(id);
+        if (data.status != 201) {
+            notification.classList.add("alert-danger");
+        }
+        else {
+            notification.classList.add("alert-success");
+        }
+        notification.innerHTML = data.message;
+        notification.classList.add("show");
+
+        setTimeout(function () {
+            notification.classList.remove("show");
+            location.href = "/AdminPortal/Reservation/Index";
+        }, 3000);
+    }
+</script>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">

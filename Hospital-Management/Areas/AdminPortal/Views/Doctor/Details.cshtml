@@ -1,0 +1,208 @@
+﻿@using Hospital_Management.Areas.AdminPortal.ViewModel
+@model DoctorDetailsVM
+@{
+ViewData["Title"] = $"{@Model.FullName} - Doctor";
+    ViewData["HeaderTitle"] = $"{@Model.FullName}";
+    ViewData["HeaderSubTitle"] = "Doctor";
+}
+
+<h1>Details</h1>
+
+
+<button class="btn btn-primary">
+    <a style="text-decoration:none" class="text-white" href="/adminportal/doctor/Index">Back to All Doctors</a>
+</button>
+<div>
+    <p class="display-3">Details of Doctor: @Model.FullName</p>
+    <div class="container d-flex">
+         <img class="img-thumbnail m-auto" width="200" height="200" src="@Model.Img" alt="image preview" />
+    </div>
+    <div class="container mt-2">
+        <table class="table table-bordered table-hover text-center">
+            <thead>
+                <th>ID</th>
+                <th>FullName</th>
+                <th>Speciality</th>
+                <th>BirthDate</th>
+                <th>Address</th>
+                <th>WorkingDays</th>
+                <th>WorkingHours</th>
+                <th>StartHour</th>
+                <th>ExaminationsMinutes</th>
+                <th>ExaminationFees</th>
+            <th>SpecialityName </th>
+            </thead>
+            <tr>
+                <td>@Model.DoctorId</td>
+                <td>@Model.FullName</td>
+                <td>@Model?.SpecialityName</td>
+                <td>@Model.BirthDate</td>
+                <td>@Model?.Address</td>
+                <td>@Model.WorkingDays</td>
+                <td>@Model.WorkingHours</td>
+                <td>@Model.StartHour</td>
+                <td>@Model.ExaminationsMinutes</td>
+                <td>@Model.ExaminationFees</td>
+
+                <td>
+                    <a asp-controller="Speciality" asp-action="details" asp-route-id="@Model.SpecialityId">@Model.SpecialityName</a>
+                </td>
+            </tr>
+            <table />
+
+            <hr />
+            <!--Reservations Table-->
+
+            <table class="table table-bordered table-hover text-center mt-3">
+                <tr>
+                    <th colspan="2" class="fs-5">
+                        Reservations
+                    </th>
+                </tr>
+                <tr>
+                    <th>Id</th>
+                    <th>ReservationStatus</th>
+                </tr>
+                @foreach (var item in Model?.Reservations)
+                {
+                    <tr class="text">
+                        <td>@item.Id</td>
+                        <td>@item.ReservationStatus</td>
+                    </tr>
+                }
+            </table>
+
+            <hr />
+            <!--Assistants Table-->
+
+            <table class="table table-bordered table-hover text-center mt-3">
+                <tr class="border-top-2">
+                    <th colspan="5" class="fs-5">
+                        Assistants
+                    </th>
+                </tr>
+                <tr>
+                    <th>Assistant Id</th>
+                    <th>Assistant Name</th>
+                    <th>Assistant PhoneNumber</th>
+                    <th>Assistant Address</th>
+                    <th>Assistant BirthDate</th>
+                    <th>Assistant Details</th>
+                </tr>
+                @foreach (var item in Model.Assistants)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.FullName</td>
+                        <td>@item.PhoneNumber</td>
+                        <td>@item?.Address</td>
+                        <td>@item.BirthDate</td>
+
+                        <td>
+                            <button class="btn btn-primary">
+                                <a class="text-white" style="text-decoration:none" href="/AdminPortal/Assistant/Details/@item.Id">Details</a>
+                            </button>
+                        </td>
+                    </tr>
+                }
+                </table>
+
+                <!--Rates Table-->
+
+                <table class="table table-bordered table-hover text-center mt-3">
+                    <tr>
+                        <th colspan="2" class="fs-5">
+                            Rates
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Id</th>
+                        <th>Comment</th>
+                        <th>Value</th>
+                    </tr>
+                    @foreach (var item in Model.Rates)
+                    {
+                        <tr class="text">
+                            <td>@item.Id</td>
+                            <td>@item.Comment</td>
+                            <td>@item.Value</td>
+
+                        </tr>
+                    }
+                </table>
+
+                <hr />
+            <!--Articles Table-->
+
+            <table class="table table-bordered table-hover text-center mt-3">
+                <tr>
+                    <th colspan="2" class="fs-5">
+                        Articles
+                    </th>
+                </tr>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>DateTime</th>
+
+                </tr>
+                @foreach (var item in Model.Articles)
+                {
+                    <tr class="text">
+                        <td>@item.Id</td>
+                        <td>@item.Title</td>
+                        <td>@item.Content</td>
+                        <td>@item.DateTime</td>
+
+                    </tr>
+                }
+            </table>
+
+            <hr />
+
+            <div class="d-flex justify-content-around fs-5">
+                <button class="btn btn-warning">
+                    <a class="text-white" style="text-decoration:none" href="/AdminPortal/doctor/edit/@Model.DoctorId">Edit</a>
+                </button>
+                <button class="btn btn-danger" onclick="confirmDelete(@Model.DoctorId)">
+                    <a class="text-white" style="text-decoration:none" href="#">Remove</a>
+                </button>
+            </div>
+    </div>
+</div>
+
+<div id="deleteAlert" class="alert alert-dismissible fade fixed-bottom w-75 m-auto mb-2" role="alert">
+</div>
+
+<script>
+    function confirmDelete(id) {
+        if (confirm("Are you sure you want to delete this doctor?")) {
+            fetch(`/AdminPortal/doctor/Delete/${id}`, {
+                method: "DELETE"
+            })
+                .then(response => response.json().then(data => ({ status: response.status, message: data.message })))
+                .then(data => notifyDeletion(id, data))
+                .catch(error => notifyDeletion(id, error));
+
+        }
+    }
+
+    function notifyDeletion(id, data) {
+        var notification = document.getElementById("deleteAlert");
+        var row = document.getElementById(id);
+        if (data.status != 201) {
+            notification.classList.add("alert-danger");
+        }
+        else {
+            notification.classList.add("alert-success");
+        }
+        notification.innerHTML = data.message;
+        notification.classList.add("show");
+
+        setTimeout(function () {
+            notification.classList.remove("show");
+            location.href = "/AdminPortal/doctor/Index";
+        }, 3000);
+    }
+</script>

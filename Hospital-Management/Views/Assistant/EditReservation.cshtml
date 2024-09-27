@@ -1,0 +1,33 @@
+﻿@using Hospital_Management.Models
+@model Hospital_Management.Areas.AssistantPortal.ViewModels.AssistantViewmodel
+@{
+    ViewData["Title"] = "EditReservation";
+}
+
+
+    <form method="Post" action="/Assistant/SaveReservation?ReservationId=@Model.ReservationId">
+
+    <div>
+        <label asp-for="PatientName"></label>
+        <input asp-for="PatientName" class="form-check form-control" disabled />
+
+    </div>
+    <div>
+        <label asp-for="ReservationDate"></label>
+        <input asp-for="ReservationDate" class="form-check form-control" type="datetime-local" />
+        <span asp-validation-for="ReservationDate" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="ReservationStatus"></label>
+        @Html.DropDownList("ReservationStatus", (IEnumerable<SelectListItem>)ViewBag.Statuses, "Select Status", new { @class = "form-control" })
+
+    </div>
+    <div>
+        <label asp-for="DoctorName"></label>
+        <input asp-for="DoctorName" class="form-check form-control" disabled />
+
+    </div>
+    
+
+    <input type="submit" value="Save" class="btn btn-success" style="margin-top:10px" />
+</form>

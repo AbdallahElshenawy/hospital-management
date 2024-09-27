@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Hospital_Management.ViewModels.RateVM>
+
+@{
+    ViewData["Title"] = "View Rates";
+}
+
+<h1>Rates</h1>
+
+
+<form method="get" action="@Url.Action("ViewRates", new { page = ViewBag.CurrentPage })" class="mb-3">
+    <div class="form-row align-items-center">
+        <div class="col-auto">
+            <input type="text" name="searchString" value="@ViewBag.SearchString" placeholder="Search..." class="form-control">
+        </div>
+        <div class="col-auto">
+            <select name="searchProperty" class="form-control">
+                <option value="Value" @(ViewBag.SearchProperty == "Value" ? "selected" : "")>Value</option>
+                <option value="Comment" @(ViewBag.SearchProperty == "Comment" ? "selected" : "")>Comment</option>
+                <option value="PatientName" @(ViewBag.SearchProperty == "PatientName" ? "selected" : "")>Patient Name</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Value</th>
+            <th>Comment</th>
+            <th>Patient Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var rate in Model)
+        {
+            <tr>
+                <td>@rate.Value</td>
+                <td>@rate.Comment</td>
+                <td>@rate.PatientName</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="d-flex justify-content-between">
+    <div>
+        @if (ViewBag.CurrentPage > 1)
+        {
+            <a href="@Url.Action("ViewRates", new { page = ViewBag.CurrentPage - 1, searchString = ViewBag.SearchString, searchProperty = ViewBag.SearchProperty })" class="btn btn-secondary">Previous</a>
+        }
+    </div>
+
+    <div>
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            <a href="@Url.Action("ViewRates", new { page = i, searchString = ViewBag.SearchString, searchProperty = ViewBag.SearchProperty })" class="btn btn-info @(i == ViewBag.CurrentPage ? "active" : "")">@i</a>
+        }
+    </div>
+
+    <div>
+        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+        {
+            <a href="@Url.Action("ViewRates", new { page = ViewBag.CurrentPage + 1, searchString = ViewBag.SearchString, searchProperty = ViewBag.SearchProperty })" class="btn btn-secondary">Next</a>
+        }
+    </div>
+</div>

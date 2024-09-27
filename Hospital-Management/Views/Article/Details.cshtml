@@ -1,0 +1,55 @@
+﻿@model ArticleViewModel
+@{
+}
+
+<style>
+    .article-content {
+        margin-top: 20px;
+    }
+
+    .doctor-info {
+        margin-top: 20px;
+    }
+
+    .doctor-image {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-right: 20px;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h3>@Model.Title</h3>
+                    <p class="text-muted">Published on: @Model.DateTime?.ToString("MMMM d, yyyy")</p>
+                </div>
+                <div class="card-body article-content">
+                    <p>@Model.Content</p>
+                </div>
+            </div>
+
+            <div class="card doctor-info">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        @if (Model.DoctorImage != null && Model.DoctorImage.Length > 0)
+                        {
+                            <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.DoctorImage)" alt="Doctor Image" class="doctor-image me-3">
+                        }
+                        else
+                        {
+                            <img src="/images/d1.jpg" alt="" class="doctor-image me-3">
+                        }
+                        <div>
+                            <h5>@Model.DoctorName</h5>
+                            <a href="/doctor/@Model.DoctorId" class="btn btn-primary">View Doctor Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

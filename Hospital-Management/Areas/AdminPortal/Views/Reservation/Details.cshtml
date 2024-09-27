@@ -1,0 +1,87 @@
+﻿@using Hospital_Management.Areas.AdminPortal.ViewModel
+@using Hospital_Management.Models
+
+@model Reservation
+@{
+   
+    ViewData["HeaderSubTitle"] = "Reservation";
+}
+
+<h1>Details</h1>
+
+<button class="btn btn-primary">
+    <a style="text-decoration:none" class="text-white" href="/adminportal/Reservation/Index">Back to All Assistants</a>
+</button>
+<div>
+    <p class="display-3">Details of Reservation: </p>
+    
+    <div class="container mt-2">
+        <table class="table table-bordered table-hover text-center">
+            <thead>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Patient</th>
+            <th>Assistant</th>
+            <th>Doctor</th>
+
+            </thead>
+            <tr>
+                <td>@Model.Id</td>
+                <td>@Model.Date</td>
+                @* <td>@Model.Patient.FullName</td>
+                <td>@Model.Assistant.FullName</td>
+                <td>@Model.Doctor.FullName</td>
+ *@
+                <td>
+                    <a asp-controller="Reservation" asp-action="details" asp-route-id="@Model.Id">@Model.ReservationStatus</a>
+                </td>
+            </tr>
+            <table />
+
+            <hr />
+
+            <div class="d-flex justify-content-around fs-5">
+                <button class="btn btn-warning">
+                    <a class="text-white" style="text-decoration:none" href="/AdminPortal/Reservation/edit/@Model.Id">Edit</a>
+                </button>
+                <button class="btn btn-danger" onclick="confirmDelete(@Model.Id)">
+                    <a class="text-white" style="text-decoration:none" href="#">Remove</a>
+                </button>
+            </div>
+    </div>
+</div>
+
+<div id="deleteAlert" class="alert alert-dismissible fade fixed-bottom w-75 m-auto mb-2" role="alert">
+</div>
+
+<script>
+    function confirmDelete(id) {
+        if (confirm("Are you sure you want to delete this Reservation?")) {
+            fetch(`/AdminPortal/Reservation/Delete/${id}`, {
+                method: "DELETE"
+            })
+                .then(response => response.json().then(data => ({ status: response.status, message: data.message })))
+                .then(data => notifyDeletion(id, data))
+                .catch(error => notifyDeletion(id, error));
+
+        }
+    }
+
+    function notifyDeletion(id, data) {
+        var notification = document.getElementById("deleteAlert");
+        var row = document.getElementById(id);
+        if (data.status != 201) {
+            notification.classList.add("alert-danger");
+        }
+        else {
+            notification.classList.add("alert-success");
+        }
+        notification.innerHTML = data.message;
+        notification.classList.add("show");
+
+        setTimeout(function () {
+            notification.classList.remove("show");
+            location.href = "/AdminPortal/Reservation/Index";
+        }, 3000);
+    }
+</script>

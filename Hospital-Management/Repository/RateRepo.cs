@@ -42,6 +42,10 @@ namespace Hospital_Management.Repository
         {
             context.Rates.Add(rate);
         }
+        public List<Rate> GetByDoctorId(string doctorId)
+        {
+            return context.Rates.Where(r => r.DoctorId == doctorId).ToList();
+        }
 
         public void Save()
         {

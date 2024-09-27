@@ -14,6 +14,10 @@ namespace Hospital_Management.Repository
                 context.Articles.Remove(article);
             }
         }
+        public List<Article> GetByDoctorId(string doctorId)
+        {
+            return context.Articles.Where(a => a.DoctorId == doctorId).ToList();
+        }
 
         public List<Article> GetAll()
         {

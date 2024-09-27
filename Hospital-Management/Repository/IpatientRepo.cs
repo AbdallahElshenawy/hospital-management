@@ -2,8 +2,8 @@
 
 namespace Hospital_Management.Repository
 {
-    public interface IPatientRepo : IRepository<Patient>
+    public interface IPatientRepo : IRepository<Patient, string>
 
-    {
+    {       
     }
 }

@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewData["Title"] = "Start Shift";
+}
+
+@if (!string.IsNullOrEmpty(Model?.PatientId))
+{
+    <a href="@Url.Action("ShiftPatientRecords", "Shift", new { Area = "DoctorPortal", patientId = Model.PatientId })" class="btn btn-primary">Start My Shift</a>
+}
+else
+{
+    <p>No reservations found.</p>
+}

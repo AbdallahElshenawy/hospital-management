@@ -1,0 +1,64 @@
+﻿@using Hospital_Management.Areas.AdminPortal.ViewModel
+@model DoctorWithSpecialityVM
+
+@{
+    ViewData["Title"] = "Add";
+    SelectList specLsit = new SelectList(Model.Specialities, "Id", "Name");
+}
+
+<h1>Add</h1>
+
+<button class="btn btn-primary mb-3">
+    <a style="text-decoration:none" class="text-white" href="/AdminPortal/Doctor/Index">Back to All Doctors</a>
+</button>
+
+<div class="container">
+    <form asp-action="Add" enctype="multipart/form-data">
+        <div class="form-group">
+            <label asp-for="FirstName">First Name</label>
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="LastName">Last Name</label>
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="BirthDate">BirthDate</label>
+            <input asp-for="BirthDate" type="date" class="form-control" />
+            <span asp-validation-for="BirthDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Address">Address</label>
+            <input asp-for="Address" class="form-control" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Img">Img</label>
+            <input asp-for="Img" class="form-control" type="file" />
+            <span asp-validation-for="Img" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="SpecialityId">Speciality</label>
+            <select asp-for="SpecialityId" asp-items="specList" class="form-control">
+                <option value="0">Select Speciality</option>
+            </select>
+            <span asp-validation-for="SpecialityId" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-2">Submit</button>
+    </form>
+</div>
+
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+}

@@ -1,0 +1,32 @@
+﻿@model Hospital_Management.ViewModels.ArticleSimpleViewModel
+
+@{
+    ViewData["Title"] = "CreateArticle";
+}
+
+<h1>CreateArticle</h1>
+
+@* <a href="@Url.Action("Save", "Doctor", new { area = "DoctorPortal" })" class="btn btn-primary mb-3">Create New Article</a>
+ *@
+
+@* <form asp-controller="Doctor" asp-action="Save" asp-area="DoctorPortal" method="post">*@
+<form action="/DoctorPortal/Doctor/Save" method="post">
+    <div class="form-group">
+        <label asp-for="Title" class="control-label">Title</label>
+        <input name="Title" value="@Model?.Title" class="form-control"/>
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Content" class="control-label">Content</label>
+        <textarea name="Content" value="@Model?.Content" class="form-control"></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DateTime" class="control-label">Date and Time</label>
+        <input name="DateTime" value="@Model?.DateTime" class="form-control" type="datetime-local" />
+        <span asp-validation-for="DateTime" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class=" btn btn-primary">Create</button>
+    </div>
+</form>

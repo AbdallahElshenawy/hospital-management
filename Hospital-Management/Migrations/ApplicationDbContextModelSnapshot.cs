@@ -111,6 +111,48 @@ namespace Hospital_Management.Migrations
                     b.HasDiscriminator().HasValue("ApplicationUser");
 
                     b.UseTphMappingStrategy();
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "a7a963d9-de3b-43f9-9ee0-ef69d145ad46",
+                            AccessFailedCount = 0,
+                            Address = "123 Admin St",
+                            BirthDate = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "03df19a5-3e07-41f2-8c56-89645a734823",
+                            Email = "admin1@example.com",
+                            EmailConfirmed = true,
+                            FirstName = "Super",
+                            LastName = "Admin",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN1@EXAMPLE.COM",
+                            NormalizedUserName = "ADMIN1@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKPjztjgrSz4ICm6ljzZUnY147KO2KqH/v8HFLHTzfQI/qcvZMnIdrMeIePM+6JSDQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "admin1@example.com"
+                        },
+                        new
+                        {
+                            Id = "45d139e1-cf2f-46d8-b1ca-133ca9d5a893",
+                            AccessFailedCount = 0,
+                            Address = "456 Admin Blvd",
+                            BirthDate = new DateTime(1975, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "c29ad074-0a57-437a-8324-4de447676e24",
+                            Email = "admin2@example.com",
+                            EmailConfirmed = true,
+                            FirstName = "Master",
+                            LastName = "Admin",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN2@EXAMPLE.COM",
+                            NormalizedUserName = "ADMIN2@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEC1LFtbS+WxEvByDCHy+CLoVLRYYe5GqhN9TNBWKAmlIPqNjuU/+oBaW/pPx0qAz7Q==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "admin2@example.com"
+                        });
                 });
 
             modelBuilder.Entity("Hospital_Management.Models.Article", b =>
@@ -140,7 +182,49 @@ namespace Hospital_Management.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("Articles");
+                    b.ToTable("Articles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Content = "Regular checkups can help identify potential health issues...",
+                            DateTime = new DateTime(2024, 8, 11, 18, 39, 39, 839, DateTimeKind.Local).AddTicks(664),
+                            DoctorId = "809a8e0b-a777-41a5-9803-d63d64ffe8bd",
+                            Title = "The Importance of Regular Checkups"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Content = "A balanced diet is essential for maintaining good health...",
+                            DateTime = new DateTime(2024, 8, 9, 18, 39, 39, 839, DateTimeKind.Local).AddTicks(674),
+                            DoctorId = "9a277e69-13db-4ff8-8041-93955f153db2",
+                            Title = "Healthy Eating Habits"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Content = "Stress management techniques are important for overall well-being...",
+                            DateTime = new DateTime(2024, 8, 7, 18, 39, 39, 839, DateTimeKind.Local).AddTicks(689),
+                            DoctorId = "3a3ab798-68f3-4673-ac60-836e431ea667",
+                            Title = "Managing Stress"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Content = "Diabetes management is crucial for preventing complications...",
+                            DateTime = new DateTime(2024, 8, 5, 18, 39, 39, 839, DateTimeKind.Local).AddTicks(712),
+                            DoctorId = "7003e456-9405-4c8f-b118-105339cfffbb",
+                            Title = "Understanding Diabetes"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Content = "Regular exercise can improve your physical and mental health...",
+                            DateTime = new DateTime(2024, 8, 3, 18, 39, 39, 839, DateTimeKind.Local).AddTicks(719),
+                            DoctorId = "741330ca-7210-4d8b-8526-6ad69ce88275",
+                            Title = "The Benefits of Exercise"
+                        });
                 });
 
             modelBuilder.Entity("Hospital_Management.Models.Rate", b =>
@@ -171,7 +255,49 @@ namespace Hospital_Management.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("Rates");
+                    b.ToTable("Rates", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Comment = "Excellent service!",
+                            DoctorId = "809a8e0b-a777-41a5-9803-d63d64ffe8bd",
+                            PatientId = "f43865ca-95c5-4a30-86fa-ae4d3d4c5377",
+                            Value = 5
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Comment = "Very good, but could be quicker.",
+                            DoctorId = "9a277e69-13db-4ff8-8041-93955f153db2",
+                            PatientId = "c03b3de7-6399-4fe6-ba3c-59eba5c058bb",
+                            Value = 4
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Comment = "Average experience.",
+                            DoctorId = "3a3ab798-68f3-4673-ac60-836e431ea667",
+                            PatientId = "db671643-7876-42fb-add6-088cc35a7565",
+                            Value = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Comment = "Not satisfied with the consultation.",
+                            DoctorId = "7003e456-9405-4c8f-b118-105339cfffbb",
+                            PatientId = "45913f68-a3ed-4b02-b211-a7b997196477",
+                            Value = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Comment = "Poor service.",
+                            DoctorId = "741330ca-7210-4d8b-8526-6ad69ce88275",
+                            PatientId = "ef824d9b-3dad-482a-9228-11ea067e78d0",
+                            Value = 1
+                        });
                 });
 
             modelBuilder.Entity("Hospital_Management.Models.Record", b =>
@@ -211,7 +337,64 @@ namespace Hospital_Management.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("Records");
+                    b.ToTable("Records", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Date = new DateTime(2024, 7, 11, 18, 39, 39, 839, DateTimeKind.Local).AddTicks(938),
+                            Description = "Annual physical exam",
+                            Diagnosis = "Healthy",
+                            DoctorId = "809a8e0b-a777-41a5-9803-d63d64ffe8bd",
+                            Notes = "Patient is in good health.",
+                            PatientId = "f43865ca-95c5-4a30-86fa-ae4d3d4c5377",
+                            Prescription = "Continue regular exercise"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Date = new DateTime(2024, 6, 11, 18, 39, 39, 839, DateTimeKind.Local).AddTicks(954),
+                            Description = "Follow-up for hypertension",
+                            Diagnosis = "Hypertension under control",
+                            DoctorId = "9a277e69-13db-4ff8-8041-93955f153db2",
+                            Notes = "Blood pressure is stable.",
+                            PatientId = "c03b3de7-6399-4fe6-ba3c-59eba5c058bb",
+                            Prescription = "Continue medication"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Date = new DateTime(2024, 5, 11, 18, 39, 39, 839, DateTimeKind.Local).AddTicks(959),
+                            Description = "Consultation for diabetes management",
+                            Diagnosis = "Type 2 diabetes",
+                            DoctorId = "3a3ab798-68f3-4673-ac60-836e431ea667",
+                            Notes = "Patient is advised to monitor blood sugar levels.",
+                            PatientId = "db671643-7876-42fb-add6-088cc35a7565",
+                            Prescription = "Insulin therapy"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Date = new DateTime(2024, 4, 11, 18, 39, 39, 839, DateTimeKind.Local).AddTicks(964),
+                            Description = "Initial consultation for weight management",
+                            Diagnosis = "Obesity",
+                            DoctorId = "7003e456-9405-4c8f-b118-105339cfffbb",
+                            Notes = "Patient is advised to follow a structured diet and exercise regimen.",
+                            PatientId = "45913f68-a3ed-4b02-b211-a7b997196477",
+                            Prescription = "Diet and exercise plan"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Date = new DateTime(2024, 3, 11, 18, 39, 39, 839, DateTimeKind.Local).AddTicks(972),
+                            Description = "Consultation for chronic back pain",
+                            Diagnosis = "Chronic lower back pain",
+                            DoctorId = "741330ca-7210-4d8b-8526-6ad69ce88275",
+                            Notes = "Patient is referred to physical therapy.",
+                            PatientId = "ef824d9b-3dad-482a-9228-11ea067e78d0",
+                            Prescription = "Physical therapy and pain management"
+                        });
                 });
 
             modelBuilder.Entity("Hospital_Management.Models.Reservation", b =>
@@ -253,7 +436,54 @@ namespace Hospital_Management.Migrations
 
                     b.HasIndex("RateId");
 
-                    b.ToTable("Reservations");
+                    b.ToTable("Reservations", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AssistantId = "6fc2b5a6-c8de-44a7-9f13-f8bd5194be42",
+                            Date = new DateTime(2024, 8, 18, 18, 39, 39, 839, DateTimeKind.Local).AddTicks(1117),
+                            DoctorId = "809a8e0b-a777-41a5-9803-d63d64ffe8bd",
+                            PatientId = "f43865ca-95c5-4a30-86fa-ae4d3d4c5377",
+                            ReservationStatus = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AssistantId = "1f1e3bbc-8e57-4778-b550-66a86eb9d64b",
+                            Date = new DateTime(2024, 8, 25, 18, 39, 39, 839, DateTimeKind.Local).AddTicks(1129),
+                            DoctorId = "9a277e69-13db-4ff8-8041-93955f153db2",
+                            PatientId = "c03b3de7-6399-4fe6-ba3c-59eba5c058bb",
+                            ReservationStatus = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AssistantId = "01c0e819-bc9f-4509-92ee-e243ff2002a7",
+                            Date = new DateTime(2024, 9, 1, 18, 39, 39, 839, DateTimeKind.Local).AddTicks(1133),
+                            DoctorId = "3a3ab798-68f3-4673-ac60-836e431ea667",
+                            PatientId = "db671643-7876-42fb-add6-088cc35a7565",
+                            ReservationStatus = 0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AssistantId = "00f20433-9169-4491-920a-8365a01597f7",
+                            Date = new DateTime(2024, 9, 8, 18, 39, 39, 839, DateTimeKind.Local).AddTicks(1137),
+                            DoctorId = "7003e456-9405-4c8f-b118-105339cfffbb",
+                            PatientId = "45913f68-a3ed-4b02-b211-a7b997196477",
+                            ReservationStatus = 0
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AssistantId = "e5cbc6af-0097-4b7e-9265-a72275568e4f",
+                            Date = new DateTime(2024, 9, 15, 18, 39, 39, 839, DateTimeKind.Local).AddTicks(1141),
+                            DoctorId = "741330ca-7210-4d8b-8526-6ad69ce88275",
+                            PatientId = "ef824d9b-3dad-482a-9228-11ea067e78d0",
+                            ReservationStatus = 0
+                        });
                 });
 
             modelBuilder.Entity("Hospital_Management.Models.Speciality", b =>
@@ -270,7 +500,34 @@ namespace Hospital_Management.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Specialities");
+                    b.ToTable("Specialities", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Cardiology"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Diagnosis"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Surgery"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "First Aid"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Orthopedics"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -298,6 +555,32 @@ namespace Hospital_Management.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "c063f579-bcdc-43a9-a614-38af82aa5a78",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "dd371c53-9e6e-438f-8ac7-a8a80518451e",
+                            Name = "Doctor",
+                            NormalizedName = "DOCTOR"
+                        },
+                        new
+                        {
+                            Id = "762d0b1c-a588-4689-bc38-9358793a065c",
+                            Name = "Assistant",
+                            NormalizedName = "ASSISTANT"
+                        },
+                        new
+                        {
+                            Id = "af794439-1eed-439a-9cfb-c34299c93c6a",
+                            Name = "Patient",
+                            NormalizedName = "PATIENT"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -387,6 +670,93 @@ namespace Hospital_Management.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "a7a963d9-de3b-43f9-9ee0-ef69d145ad46",
+                            RoleId = "c063f579-bcdc-43a9-a614-38af82aa5a78"
+                        },
+                        new
+                        {
+                            UserId = "45d139e1-cf2f-46d8-b1ca-133ca9d5a893",
+                            RoleId = "c063f579-bcdc-43a9-a614-38af82aa5a78"
+                        },
+                        new
+                        {
+                            UserId = "809a8e0b-a777-41a5-9803-d63d64ffe8bd",
+                            RoleId = "dd371c53-9e6e-438f-8ac7-a8a80518451e"
+                        },
+                        new
+                        {
+                            UserId = "9a277e69-13db-4ff8-8041-93955f153db2",
+                            RoleId = "dd371c53-9e6e-438f-8ac7-a8a80518451e"
+                        },
+                        new
+                        {
+                            UserId = "3a3ab798-68f3-4673-ac60-836e431ea667",
+                            RoleId = "dd371c53-9e6e-438f-8ac7-a8a80518451e"
+                        },
+                        new
+                        {
+                            UserId = "7003e456-9405-4c8f-b118-105339cfffbb",
+                            RoleId = "dd371c53-9e6e-438f-8ac7-a8a80518451e"
+                        },
+                        new
+                        {
+                            UserId = "741330ca-7210-4d8b-8526-6ad69ce88275",
+                            RoleId = "dd371c53-9e6e-438f-8ac7-a8a80518451e"
+                        },
+                        new
+                        {
+                            UserId = "6fc2b5a6-c8de-44a7-9f13-f8bd5194be42",
+                            RoleId = "762d0b1c-a588-4689-bc38-9358793a065c"
+                        },
+                        new
+                        {
+                            UserId = "1f1e3bbc-8e57-4778-b550-66a86eb9d64b",
+                            RoleId = "762d0b1c-a588-4689-bc38-9358793a065c"
+                        },
+                        new
+                        {
+                            UserId = "01c0e819-bc9f-4509-92ee-e243ff2002a7",
+                            RoleId = "762d0b1c-a588-4689-bc38-9358793a065c"
+                        },
+                        new
+                        {
+                            UserId = "00f20433-9169-4491-920a-8365a01597f7",
+                            RoleId = "762d0b1c-a588-4689-bc38-9358793a065c"
+                        },
+                        new
+                        {
+                            UserId = "e5cbc6af-0097-4b7e-9265-a72275568e4f",
+                            RoleId = "762d0b1c-a588-4689-bc38-9358793a065c"
+                        },
+                        new
+                        {
+                            UserId = "f43865ca-95c5-4a30-86fa-ae4d3d4c5377",
+                            RoleId = "af794439-1eed-439a-9cfb-c34299c93c6a"
+                        },
+                        new
+                        {
+                            UserId = "c03b3de7-6399-4fe6-ba3c-59eba5c058bb",
+                            RoleId = "af794439-1eed-439a-9cfb-c34299c93c6a"
+                        },
+                        new
+                        {
+                            UserId = "db671643-7876-42fb-add6-088cc35a7565",
+                            RoleId = "af794439-1eed-439a-9cfb-c34299c93c6a"
+                        },
+                        new
+                        {
+                            UserId = "45913f68-a3ed-4b02-b211-a7b997196477",
+                            RoleId = "af794439-1eed-439a-9cfb-c34299c93c6a"
+                        },
+                        new
+                        {
+                            UserId = "ef824d9b-3dad-482a-9228-11ea067e78d0",
+                            RoleId = "af794439-1eed-439a-9cfb-c34299c93c6a"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -421,6 +791,108 @@ namespace Hospital_Management.Migrations
                     b.HasIndex("DoctorId");
 
                     b.HasDiscriminator().HasValue("Assistant");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "6fc2b5a6-c8de-44a7-9f13-f8bd5194be42",
+                            AccessFailedCount = 0,
+                            BirthDate = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "2f782ad7-df01-4f15-978f-751ab47620a2",
+                            Email = "assistant1@example.com",
+                            EmailConfirmed = true,
+                            FirstName = "Eve",
+                            LastName = "Adams",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ASSISTANT1@EXAMPLE.COM",
+                            NormalizedUserName = "ASSISTANT1@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAELrQbnKRiSmSiwiXMCLfgT1XZJB5CcOkyuUN91nofwVjsCUt+J84PbsLauJKMnTlpg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "assistant1@example.com",
+                            DoctorId = "809a8e0b-a777-41a5-9803-d63d64ffe8bd"
+                        },
+                        new
+                        {
+                            Id = "1f1e3bbc-8e57-4778-b550-66a86eb9d64b",
+                            AccessFailedCount = 0,
+                            BirthDate = new DateTime(1992, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "dd299178-945e-4b82-9fe5-adc2895792ea",
+                            Email = "assistant2@example.com",
+                            EmailConfirmed = true,
+                            FirstName = "Frank",
+                            LastName = "Clark",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ASSISTANT2@EXAMPLE.COM",
+                            NormalizedUserName = "ASSISTANT2@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEENY+9UBhZkDD5bCqWjBeze3cNIOOE4YySSPJ24qQuheWytCrwdS2bPI8/87iMsJeA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "assistant2@example.com",
+                            DoctorId = "9a277e69-13db-4ff8-8041-93955f153db2"
+                        },
+                        new
+                        {
+                            Id = "01c0e819-bc9f-4509-92ee-e243ff2002a7",
+                            AccessFailedCount = 0,
+                            BirthDate = new DateTime(1994, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "b55ddddf-0b45-49c4-ba6e-3d6a971525d1",
+                            Email = "assistant3@example.com",
+                            EmailConfirmed = true,
+                            FirstName = "Grace",
+                            LastName = "Harris",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ASSISTANT3@EXAMPLE.COM",
+                            NormalizedUserName = "ASSISTANT3@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAO57hrHPqEh79mr8+r/Zl/5CnYm24X0YOhmu4OzVOao7FXDcjGGB/RVdDBsXhghag==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "assistant3@example.com",
+                            DoctorId = "3a3ab798-68f3-4673-ac60-836e431ea667"
+                        },
+                        new
+                        {
+                            Id = "00f20433-9169-4491-920a-8365a01597f7",
+                            AccessFailedCount = 0,
+                            BirthDate = new DateTime(1996, 7, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "99177479-8771-43ea-8151-8a0c6ce3fe37",
+                            Email = "assistant4@example.com",
+                            EmailConfirmed = true,
+                            FirstName = "Henry",
+                            LastName = "Baker",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ASSISTANT4@EXAMPLE.COM",
+                            NormalizedUserName = "ASSISTANT4@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEALbvEEbJ/SfpOtSoBSB/KgDSXwN6jjctcnzFEFz86xmE1OAhGVccyBcQkURaJXyUQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "assistant4@example.com",
+                            DoctorId = "7003e456-9405-4c8f-b118-105339cfffbb"
+                        },
+                        new
+                        {
+                            Id = "e5cbc6af-0097-4b7e-9265-a72275568e4f",
+                            AccessFailedCount = 0,
+                            BirthDate = new DateTime(1998, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "dba0f791-8c9e-41e6-845f-855286dc24ff",
+                            Email = "assistant5@example.com",
+                            EmailConfirmed = true,
+                            FirstName = "Ivy",
+                            LastName = "Davis",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ASSISTANT5@EXAMPLE.COM",
+                            NormalizedUserName = "ASSISTANT5@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJJpDKhiaqLWLVD8IM1PJ5GyyCcvSRUGF8w+gdHObhapmU6sA3qIMf1LsnInurFTIA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "assistant5@example.com",
+                            DoctorId = "741330ca-7210-4d8b-8526-6ad69ce88275"
+                        });
                 });
 
             modelBuilder.Entity("Hospital_Management.Models.Doctor", b =>
@@ -449,6 +921,133 @@ namespace Hospital_Management.Migrations
                     b.HasIndex("SpecialityId");
 
                     b.HasDiscriminator().HasValue("Doctor");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "809a8e0b-a777-41a5-9803-d63d64ffe8bd",
+                            AccessFailedCount = 0,
+                            BirthDate = new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "e76ffbd3-4e63-46b8-8b92-05ba84789096",
+                            Email = "doctor1@example.com",
+                            EmailConfirmed = true,
+                            FirstName = "John",
+                            LastName = "Doe",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "DOCTOR1@EXAMPLE.COM",
+                            NormalizedUserName = "DOCTOR1@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKR3QTegVLj/GH9GUmdNjoGlnyFbAtHHvSujdIuf8AzCs+R5rpQc3MCWa+h31fXfvg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "doctor1@example.com",
+                            ExaminationFees = 200m,
+                            ExaminationsMinutes = 20,
+                            SpecialityId = 1,
+                            StartHour = 9,
+                            WorkingDays = 42,
+                            WorkingHours = 8
+                        },
+                        new
+                        {
+                            Id = "9a277e69-13db-4ff8-8041-93955f153db2",
+                            AccessFailedCount = 0,
+                            BirthDate = new DateTime(1985, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "67fdb479-cc0e-436b-9ef7-2f9c247e5d16",
+                            Email = "doctor2@example.com",
+                            EmailConfirmed = true,
+                            FirstName = "Jane",
+                            LastName = "Smith",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "DOCTOR2@EXAMPLE.COM",
+                            NormalizedUserName = "DOCTOR2@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEF9Z187EKVdim5irW2wgFymHzzY0qZLuBm7KzKsmDUE9jAikq9rH8WCL83RvtYgB8w==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "doctor2@example.com",
+                            ExaminationFees = 250m,
+                            ExaminationsMinutes = 30,
+                            SpecialityId = 2,
+                            StartHour = 10,
+                            WorkingDays = 20,
+                            WorkingHours = 6
+                        },
+                        new
+                        {
+                            Id = "3a3ab798-68f3-4673-ac60-836e431ea667",
+                            AccessFailedCount = 0,
+                            BirthDate = new DateTime(1975, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "b37cfd47-0239-45ee-be99-8dce7e34deaf",
+                            Email = "doctor3@example.com",
+                            EmailConfirmed = true,
+                            FirstName = "Alice",
+                            LastName = "Johnson",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "DOCTOR3@EXAMPLE.COM",
+                            NormalizedUserName = "DOCTOR3@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMRvwPa6wBbQnaRZdR9rztoF8sR5cbPkl0nXK/gbd87uf/vv4U0sMJJLnDuS9e7Hcg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "doctor3@example.com",
+                            ExaminationFees = 300m,
+                            ExaminationsMinutes = 25,
+                            SpecialityId = 3,
+                            StartHour = 8,
+                            WorkingDays = 18,
+                            WorkingHours = 7
+                        },
+                        new
+                        {
+                            Id = "7003e456-9405-4c8f-b118-105339cfffbb",
+                            AccessFailedCount = 0,
+                            BirthDate = new DateTime(1970, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "703403f3-8e77-4c38-8bc5-eb037bc06133",
+                            Email = "doctor4@example.com",
+                            EmailConfirmed = true,
+                            FirstName = "Bob",
+                            LastName = "Williams",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "DOCTOR4@EXAMPLE.COM",
+                            NormalizedUserName = "DOCTOR4@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEE+6dypJ8EwuP6ju24zT5dgkZ9jrpSWsZZ2OfnHzdJasNLAuCDDW6bwMZ8CMj3QCRQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "doctor4@example.com",
+                            ExaminationFees = 180m,
+                            ExaminationsMinutes = 15,
+                            SpecialityId = 4,
+                            StartHour = 11,
+                            WorkingDays = 40,
+                            WorkingHours = 5
+                        },
+                        new
+                        {
+                            Id = "741330ca-7210-4d8b-8526-6ad69ce88275",
+                            AccessFailedCount = 0,
+                            BirthDate = new DateTime(1965, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "1ffcd161-174c-4e98-89eb-086bdb54354b",
+                            Email = "doctor5@example.com",
+                            EmailConfirmed = true,
+                            FirstName = "Charlie",
+                            LastName = "Brown",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "DOCTOR5@EXAMPLE.COM",
+                            NormalizedUserName = "DOCTOR5@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKdXHLFO0mXc5KRPp8f3k8Dlu12Qpbjr985xLZE3z/N13G1DJ9iVrzhRg9gYMjvLzg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "doctor5@example.com",
+                            ExaminationFees = 220m,
+                            ExaminationsMinutes = 20,
+                            SpecialityId = 5,
+                            StartHour = 9,
+                            WorkingDays = 20,
+                            WorkingHours = 9
+                        });
                 });
 
             modelBuilder.Entity("Hospital_Management.Models.Patient", b =>
@@ -459,6 +1058,108 @@ namespace Hospital_Management.Migrations
                         .HasColumnType("int");
 
                     b.HasDiscriminator().HasValue("Patient");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "f43865ca-95c5-4a30-86fa-ae4d3d4c5377",
+                            AccessFailedCount = 0,
+                            BirthDate = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "55193e7f-f6bc-4042-9f75-72d185a4e955",
+                            Email = "patient1@example.com",
+                            EmailConfirmed = true,
+                            FirstName = "Olivia",
+                            LastName = "Brown",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "PATIENT1@EXAMPLE.COM",
+                            NormalizedUserName = "PATIENT1@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHfOSFbUspVdqgT1HO6026sH/mTk3VGQAo5cbA7PGExGexhQv5YknlrHLB2gtrxRDQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "patient1@example.com",
+                            AbscentTimes = 0
+                        },
+                        new
+                        {
+                            Id = "c03b3de7-6399-4fe6-ba3c-59eba5c058bb",
+                            AccessFailedCount = 0,
+                            BirthDate = new DateTime(2002, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "42ba9f22-3db4-4ac6-9c3e-114adcb73f81",
+                            Email = "patient2@example.com",
+                            EmailConfirmed = true,
+                            FirstName = "Sophia",
+                            LastName = "Miller",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "PATIENT2@EXAMPLE.COM",
+                            NormalizedUserName = "PATIENT2@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA8zcJBbn9DqEecbSWAlR4i/SliCWpOr2iV1epcDE2ox5JSH0VcpA0asJy0evQ+Udw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "patient2@example.com",
+                            AbscentTimes = 0
+                        },
+                        new
+                        {
+                            Id = "db671643-7876-42fb-add6-088cc35a7565",
+                            AccessFailedCount = 0,
+                            BirthDate = new DateTime(2004, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "4cbebca8-379b-497b-88df-0bba46889cbb",
+                            Email = "patient3@example.com",
+                            EmailConfirmed = true,
+                            FirstName = "Liam",
+                            LastName = "Wilson",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "PATIENT3@EXAMPLE.COM",
+                            NormalizedUserName = "PATIENT3@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMOjYct5DxGgg5aNQF80kQzBBqHruwHDAXJhhFI0URN8iq9UoGmEaIbaLqN/F88gnw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "patient3@example.com",
+                            AbscentTimes = 0
+                        },
+                        new
+                        {
+                            Id = "45913f68-a3ed-4b02-b211-a7b997196477",
+                            AccessFailedCount = 0,
+                            BirthDate = new DateTime(2006, 7, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "6539c8ca-e674-45d6-a4d2-add1dbcb3e48",
+                            Email = "patient4@example.com",
+                            EmailConfirmed = true,
+                            FirstName = "Noah",
+                            LastName = "Taylor",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "PATIENT4@EXAMPLE.COM",
+                            NormalizedUserName = "PATIENT4@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEP2ZNGk1RQTHloetHDeh2rOQ3HWh/JIL/IBlwqZEvI3rNrlvJLx+fE+6zVvQ2zE8LQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "patient4@example.com",
+                            AbscentTimes = 0
+                        },
+                        new
+                        {
+                            Id = "ef824d9b-3dad-482a-9228-11ea067e78d0",
+                            AccessFailedCount = 0,
+                            BirthDate = new DateTime(2008, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "5cd2e7bd-25b1-41cc-bd98-dcd8cf14c98a",
+                            Email = "patient5@example.com",
+                            EmailConfirmed = true,
+                            FirstName = "Emma",
+                            LastName = "Anderson",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "PATIENT5@EXAMPLE.COM",
+                            NormalizedUserName = "PATIENT5@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDiCdZlKJEMwSguAoamMUPRIUyqStpY9hqhh3qXXQt9IRHqBNCuPZp270FVJpzu6Mw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "patient5@example.com",
+                            AbscentTimes = 0
+                        });
                 });
 
             modelBuilder.Entity("Hospital_Management.Models.Article", b =>

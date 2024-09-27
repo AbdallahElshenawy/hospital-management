@@ -1,5 +1,9 @@
 ﻿using Hospital_Management.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
+using System.Data;
+using System.Security.Claims;
 
 namespace Hospital_Management.Services
 {
@@ -85,6 +89,41 @@ namespace Hospital_Management.Services
             var result = await userManager.RemoveFromRoleAsync(user, role);
             return result.Succeeded;
         }
-    }
 
+        public async Task<TUser> GetUserByEmail(string email)
+        {
+            return await userManager.FindByEmailAsync(email);
+        }
+
+        public Task<string> GetUserEmailAsync(TUser user)
+        {
+            return userManager.GetEmailAsync(user);
+        }
+
+        public Task<string> GenerateEmailConfirmationTokenAsync(TUser user)
+        {
+            return userManager.GenerateEmailConfirmationTokenAsync(user);
+        }
+
+        public async Task<bool> ConfirmEmailAsync(TUser user, string token)
+        {
+            var result = await userManager.ConfirmEmailAsync(user, token);
+            return result.Succeeded;
+        }
+
+        public Task<string> GenerateEmailPasswordResetTokenAsync(TUser user)
+        {
+            return userManager.GeneratePasswordResetTokenAsync(user);
+        }
+
+        public Task<TUser> GetUserByEmailAsync(string email)
+        {
+            return userManager.FindByEmailAsync(email);
+        }
+
+        public Task ResetPasswordAsync(TUser user, string token, string newPassword)
+        {
+            return userManager.ResetPasswordAsync(user, token, newPassword);
+        }
+    }
 }

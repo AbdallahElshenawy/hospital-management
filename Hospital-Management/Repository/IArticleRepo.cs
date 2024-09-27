@@ -2,7 +2,9 @@
 
 namespace Hospital_Management.Repository
 {
-    public interface IArticleRepo: IRepository<Article>
+    public interface IArticleRepo: IRepository<Article, int>
     {
+        List<Article> GetByDoctorId(string doctorId);
+
     }
 }

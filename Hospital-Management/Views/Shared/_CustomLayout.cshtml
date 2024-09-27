@@ -15,8 +15,12 @@
 
     <title> Orthoc </title>
 
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
     <!-- bootstrap core css -->
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 
     <!-- fonts style -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -32,6 +36,7 @@
 
     <!-- responsive style -->
     <link href="/css/responsive.css" rel="stylesheet" />
+
 </head>
 
 <body class="sub_page">
@@ -53,26 +58,39 @@
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="/">Home </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="about.html"> About</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="departments.html">Departments</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="doctors.html">Doctors</a>
-                            </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="contact.html">Contact Us <span class="sr-only">(current)</span> </a>
+                                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                             </li>
-                            <form class="form-inline">
-                                <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                </button>
-                            </form>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/article">Articles</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/speciality">Departments</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/doctor">Doctors</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/home/contact">Contact Us</a>
+                            </li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" role="button" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                        @User.FindFirst(ClaimTypes.GivenName).Value
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                                        <li><a class="dropdown-item" href="/user/logout">Logout</a></li>
+                                    </ul>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link btn-success" href="/user/register">Join Us</a>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </nav>
@@ -147,19 +165,19 @@
                             Links
                         </h4>
                         <div class="footer_links">
-                            <a class="" href="index.html">
+                            <a class="" href="/">
                                 Home
                             </a>
-                            <a class="" href="about.html">
-                                About
+                            <a class="" href="/article">
+                                Articles
                             </a>
-                            <a class="" href="departments.html">
+                            <a class="" href="/speciality">
                                 Departments
                             </a>
-                            <a class="" href="doctors.html">
+                            <a class="" href="/doctor">
                                 Doctors
                             </a>
-                            <a class="active" href="contact.html">
+                            <a class="active" href="/home/contact">
                                 Contact Us
                             </a>
                         </div>
@@ -199,7 +217,7 @@
     <!-- custom js -->
     <script type="text/javascript" src="/js/custom.js"></script>
     @* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
-    @* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 

@@ -1,0 +1,103 @@
+﻿@using Hospital_Management.Areas.AdminPortal.ViewModel
+@using Hospital_Management.Models
+
+@model SearchVM<Patient>
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h1>Search</h1>
+
+<button class="btn btn-primary mb-3">
+    <a style="text-decoration:none" class="text-white" href="/AdminPortal/Patient/Index">Back to All Patients</a>
+</button>
+
+<div class="container">
+    <div class="d-flex">
+        <form action="/AdminPortal/Patient/search" method="post">
+            <div class="input-group me-auto">
+                <input class="form-control" type="search" name="searchString" placeholder="Search" />
+                <select class="form-select" name="SearchProperty">
+                    <option value="FullName">FullName</option>
+                    <option value="PhoneNumber">PhoneNumber</option>
+                </select>
+                <button class="btn btn-success" type="submit"><i class="bi bi-search"></i></button>
+            </div>
+        </form>
+        <button class="btn btn-success ms-auto mb-1">
+            <a class="text-white" style="text-decoration:none" href="/AdminPortal/Patient/Add">New</a>
+        </button>
+    </div>
+    <table class="table table-bordered table-hover text-center align-middle">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>FullName</th>
+                <th>BirthDate</th>
+                <th>Address</th>
+                <th>Details</th>
+                <th>Modify</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
+        @foreach (var item in Model.Items)
+        {
+            <tr id="@item?.Id">
+                <td>@item.Id</td>
+                <td>@item.FullName</td> 
+                <td>@item.BirthDate</td>
+                <td>@item?.Address</td>
+
+                <td>
+                    <button class="btn btn-primary">
+                        <a class="text-white" style="text-decoration:none" href="/AdminPortal/Patient/Details/@item?.Id">Details</a>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-warning">
+                        <a class="text-white" style="text-decoration:none" href="/AdminPortal/Patient/Edit/@item?.Id">Edit</a>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-danger" onclick="confirmDelete(@item?.Id)">
+                        Remove
+                    </button>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<div id="deleteAlert" class="alert alert-dismissible fade fixed-bottom w-75 m-auto mb-2" role="alert">
+</div>
+
+<script>
+    function confirmDelete(id) {
+        if (confirm("Are you sure you want to delete this course?")) {
+            fetch(`/AdminPortal/Patient/Delete/${id}`, {
+                method: "DELETE"
+            })
+                .then(response => response.json().then(data => ({ status: response.status, message: data.message })))
+                .then(data => notifyDeletion(id, data))
+                .catch(error => notifyDeletion(id, error));
+
+        }
+    }
+
+    function notifyDeletion(id, data) {
+        var notification = document.getElementById("deleteAlert");
+        var row = document.getElementById(id);
+        if (data.status != 201) {
+            notification.classList.add("alert-danger");
+        }
+        else {
+            notification.classList.add("alert-success");
+            row.remove();
+        }
+        notification.innerHTML = data.message;
+        notification.classList.add("show");
+
+        setTimeout(function () {
+            notification.classList.remove("show");
+        }, 3000);
+    }
+</script>
